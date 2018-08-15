@@ -33,9 +33,9 @@ app.use(require("express-session")({
 
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+//passport.use(new LocalStrategy(User.authenticate()));
+//passport.serializeUser(User.serializeUser());
+//passport.deserializeUser(User.deserializeUser());
 
 app.use(function (req, res, next) {
     //console.log(req.user);
@@ -43,4 +43,8 @@ app.use(function (req, res, next) {
     res.locals.error = req.flash("error");
     res.locals.success = req.flash("success");
     next();
+});
+
+app.listen("3000","localhost",function(){
+    console.log("Loading the Yak on the car...Done");
 });
