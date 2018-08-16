@@ -13,7 +13,7 @@ var options = {
 };
 
     require("dotenv").config();
- //mongoose.connect(process.env.DEVURL, options, function () {
+ mongoose.connect(process.env.DEVURL, options, function () {
 //     //mongoose.connection.db.dropDatabase();
  //});
 
@@ -61,7 +61,5 @@ app.use(indexRoute);
 
 
 
+app.listen(process.env.PORT || 3000);
 
-app.listen("3000","localhost",function(){
-    console.log("Loading the Yak on the car...Done");
-});
