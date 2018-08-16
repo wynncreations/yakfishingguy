@@ -7,6 +7,13 @@ router.get("/",function(req,res){
     res.render("landing");
 });
 
+router.get("/tos", function (req, res) {
+    res.render("tos");
+});
+
+router.get("/privacy", function (req, res) {
+    res.render("privacy");
+});
 
 
 
