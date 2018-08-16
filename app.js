@@ -12,7 +12,7 @@ var options = {
     useNewUrlParser: true
 };
 
-
+    require("dotenv").config();
  mongoose.connect(process.env.DEVURL, options, function () {
 //     //mongoose.connection.db.dropDatabase();
  });
