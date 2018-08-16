@@ -13,9 +13,9 @@ var options = {
 };
 
     require("dotenv").config();
- mongoose.connect(process.env.DEVURL, options, function () {
+//mongoose.connect(process.env.DEVURL, options, function () {
 //     //mongoose.connection.db.dropDatabase();
- });
+ //});
 
 var indexRoute = require("./routes/index");
 
