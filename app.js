@@ -50,18 +50,12 @@ app.use(function (req, res, next) {
     next();
 });
 
-
-
-
 /*
     Tell app which routes we can use.
 */
 
 app.use(indexRoute);
 
-
-
-
-app.listen(process.env.PORT, "localhost", function () {
+app.listen(process.env.PORT, function () {
     console.log("Loading the Yak on the car...Done");
 });
