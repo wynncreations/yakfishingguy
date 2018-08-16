@@ -5,15 +5,20 @@ var express = require("express"),
     passport = require("passport"),
     LocalStrategy = require("passport-local"),
     methodOverride = require("method-override"),
+    User = require("./models/user"),
     flash = require("connect-flash");
 
 var options = {
     useNewUrlParser: true
 };
 
-mongoose.connect("mongodb+srv://wynncreations:C0wb0y13@cluster0-ghrhm.mongodb.net/yakfishingguy?retryWrites=true", options, function () {
-    //mongoose.connection.db.dropDatabase();
-});
+
+// mongoose.connect(DEVURL, options, function () {
+//     //mongoose.connection.db.dropDatabase();
+// });
+
+var indexRoute = require("./routes/index");
+
 app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({
@@ -44,6 +49,18 @@ app.use(function (req, res, next) {
     res.locals.success = req.flash("success");
     next();
 });
+
+
+
+
+/*
+    Tell app which routes we can use.
+*/
+
+app.use(indexRoute);
+
+
+
 
 app.listen("3000","localhost",function(){
     console.log("Loading the Yak on the car...Done");
