@@ -15,7 +15,7 @@ var options = {
     require("dotenv").config();
  mongoose.connect(process.env.DEVURL, options, function () {
 //     //mongoose.connection.db.dropDatabase();
- //});
+ });
 
 var indexRoute = require("./routes/index");
 
@@ -61,5 +61,7 @@ app.use(indexRoute);
 
 
 
-app.listen(process.env.PORT || 3000);
 
+app.listen(process.env.PORT || 5000, "localhost", function () {
+    console.log("Loading the Yak on the car...Done");
+});
