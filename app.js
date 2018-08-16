@@ -62,6 +62,6 @@ app.use(indexRoute);
 
 
 
-app.listen(process.env.PORT || 5000, "localhost", function () {
+app.listen(process.env.PORT, "localhost", function () {
     console.log("Loading the Yak on the car...Done");
 });
