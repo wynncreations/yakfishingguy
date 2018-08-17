@@ -93,7 +93,6 @@
             <ul class="nav navbar-nav navbar-right">
                 <% if(!currentUser){ %>
                     <li><div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div></li>
-                    <li><a href="/register">Register</a></li>
                 <% } else{ %>
                     <li><a href="#">Signed in as: <%= currentUser.username %></a></li>
                     <li><a href="/logout">Logout</a></li>
