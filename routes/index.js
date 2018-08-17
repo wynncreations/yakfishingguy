@@ -28,7 +28,7 @@ router.get("/",function(req,res){
     // });
 
     //send media url to the landing page.
-    res.render("landing",{mediaURL: media.media_url});
+    res.render("landing");
 });
 
 router.get("/tos", function (req, res) {
