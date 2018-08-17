@@ -12,8 +12,8 @@ router.get("/",function(req,res){
         if (err) {
             return console.log(err);
         }
-        console.log(body.url);
-        console.log(body.explanation);
+       // console.log(body.url);
+       // console.log(body.explanation);
     }); 
 
     // //Request media url for the most recent post.
