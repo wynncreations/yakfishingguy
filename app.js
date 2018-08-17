@@ -55,11 +55,9 @@ app.use(function (req, res, next) {
     Tell app which routes we can use.
 */
 
-
-
-
-
 app.use(indexRoute);
+
+
 //process.env.PORT
 app.listen(process.env.PORT || 3000, function () {
     console.log("Loading the Yak on the car...Done");
