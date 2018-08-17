@@ -7,6 +7,7 @@ var express = require("express"),
     methodOverride = require("method-override"),
     User = require("./models/user"),
     flash = require("connect-flash");
+    request = require("request");
 
 var options = {
     useNewUrlParser: true
@@ -53,6 +54,10 @@ app.use(function (req, res, next) {
 /*
     Tell app which routes we can use.
 */
+
+
+
+
 
 app.use(indexRoute);
 //process.env.PORT
