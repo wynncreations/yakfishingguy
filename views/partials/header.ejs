@@ -69,7 +69,6 @@
     spinner.removeAttribute("style");
     spinner.removeChild(spinner.childNodes[0]);
     }
-    FB.Event.subscribe('xfbml.render', finished_rendering);
 
     function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
@@ -79,6 +78,10 @@
         'Thanks for logging in, ' + response.name + '!';
     });
   }
+
+
+    FB.Event.subscribe('xfbml.render', finished_rendering);
+
 
 </script>
 
@@ -115,30 +118,4 @@
         <% } %>    
     </div>
 
-    <!--
-    Below we include the Login Button social plugin. This button uses
-    the JavaScript SDK to present a graphical Login button that triggers
-    the FB.login() function when clicked.
-    -->
-
-    <div id="spinner"
-        style="
-            background: #4267b2;
-            border-radius: 5px;
-            color: white;
-            height: 40px;
-            text-align: center;
-            width: 250px;">
-        Loading
-        <div
-        class="fb-login-button"
-        data-max-rows="1"
-        data-size="large"
-        data-button-type="continue_with"
-        data-use-continue-as="true"
-        ></div>
-    </div>
-
-    <!--<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>
-    -->
     </div>
