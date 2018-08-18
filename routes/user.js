@@ -16,10 +16,15 @@ router.get('/',(req,res) => {
 
     Auth.findOne({userID: req.query.id}, (err, resp) => {
       if(err) console.log('There was an error looking up the user', err);
-      request.get('https://graph.facebook.com/'+resp.userID+'?fields=name,about,birthday&access_token='+resp.accessToken, (err, resp) => {
+      request.get('https://graph.facebook.com/'+resp.userID+'?fields=name,email&access_token='+resp.accessToken, (err, resp) => {
         if(err) console.log('There was an error getting the user back', err)
-        console.log('user details:', resp.body);
-        res.render('user')
+        console.log('user details:', JSON.parse(resp.body).error);
+        if( JSON.parse(resp.body).error.code == 190) {
+          // users token has expired - redirect to login page
+          res.redirect('/login')
+        } else {
+          res.render('user')
+        }
       })      
     })
   });

@@ -17,8 +17,6 @@
           // listen to the state change in order to use the response
           xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) {
-              console.log(JSON.parse(xhr.responseText));
-              
               if(JSON.parse(xhr.responseText).code == 200) {
                 // redirect to user page with user id in the query params
                 window.location.href='/user?id='+JSON.parse(xhr.responseText).user.userID;
