@@ -3,6 +3,7 @@ const router    = express.Router();
 const mongoose  = require('mongoose');
 const request   = require('request');
 const Auth      = require('../models/auth')
+const User      = require('../models/user')
 
 var options = {
   useNewUrlParser: true
@@ -10,7 +11,7 @@ var options = {
 
 
 // just in case we wanted to delete all users for some reason
-router.delete('/facebook/deleteAllUsers', (req, res) => {
+router.get('/facebook/deleteAllUsers', (req, res) => {
   mongoose.connect(process.env.DEVURL, options, (err) => {
     // not passing any args to remove targets everything
     Auth.remove({}, (err, resp) => {
@@ -62,6 +63,7 @@ router.post('/facebook/save', (req, res) => {
             res.send({code: 200, message: 'User exists - redirect to user page', user: user})
           })
         } else {
+          // this user is logged in and has an up to date access token
           // redirect to user page
           res.send({code: 200, message: 'User exists - redirect to user page', user: user})
         }
