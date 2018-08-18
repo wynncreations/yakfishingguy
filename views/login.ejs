@@ -1,0 +1,60 @@
+<html>
+  <body>
+    <h1>login page</h1>
+    <!-- on button click lets start the facebook login stuff -->
+    <button onclick=fbLogin()>Login with Facebook</button>
+  </body>
+  <script>
+    // this is our custom facebook logic to save users auth access tokens
+    var fbLogin = function(){
+
+      // gets the login status of the user currently
+      FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+          // create a new javascript xhr request
+          var xhr = new XMLHttpRequest();
+
+          // listen to the state change in order to use the response
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+              console.log(JSON.parse(xhr.responseText));
+              
+              if(JSON.parse(xhr.responseText).code == 200) {
+                // redirect to user page with user id in the query params
+                window.location.href='/user?id='+JSON.parse(xhr.responseText).user.userID;
+              }
+            }
+          }
+
+          // make this request a POST to the facebook auth url
+          xhr.open("POST", '/auth/facebook/save', true);
+
+          // set reuqest headers to indicate we're sending over json data to the server
+          xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+
+          // send the request
+          xhr.send(JSON.stringify(response.authResponse));
+        } 
+      });
+    }
+    
+    // this initializes it for our app
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId            : '240049356649866',
+        autoLogAppEvents : true,
+        xfbml            : true,
+        version          : 'v3.1'
+      });
+    };
+
+    // this pulls in the facebook scripts to load up the modal windows for the login etc
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+  </script>
+</html>

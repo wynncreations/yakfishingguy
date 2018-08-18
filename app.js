@@ -1,6 +1,5 @@
 var express = require("express"),
     app = express(),
-    bodyParser = require("body-parser"),
     mongoose = require("mongoose"),
     passport = require("passport"),
     LocalStrategy = require("passport-local"),
@@ -12,21 +11,25 @@ var options = {
     useNewUrlParser: true
 };
 
-    require("dotenv").config();
-mongoose.connect(process.env.DEVURL, options, function () {
-//     //mongoose.connection.db.dropDatabase();
-});
+require("dotenv").config();
+// mongoose.connect(process.env.DEVURL, options, (err, resp) => {
+//   if(err) console.warn('There was an error connecting to the database:', err)
+//   // mongoose.connection.db.dropDatabase();
+// });
 
 var indexRoute = require("./routes/index");
+var loginRoute = require("./routes/login");
+var authRoute = require("./routes/auth");
+var userRoute = require("./routes/user");
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
 app.use(express.static(__dirname + "/public"));
 
-app.use(flash()); //include flash config so we can do     some messages
+app.use(flash()); //include flash config so we can do some messages
 
 //seedDB();
 //Passort config
@@ -55,6 +58,9 @@ app.use(function (req, res, next) {
 */
 
 app.use(indexRoute);
+app.use('/login', loginRoute);
+app.use('/auth', authRoute);
+app.use('/user', userRoute);
 
 app.listen(process.env.PORT, function () {
     console.log("Loading the Yak on the car...Done");
