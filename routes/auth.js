@@ -51,9 +51,20 @@ router.post('/facebook/save', (req, res) => {
       } else {
         // this user already exists - log it and redirect
         console.log('This user already exists:', user)
-        
-        // redirect to user page
-        res.send({code: 200, message: 'User exists - redirect to user page', user: user})
+
+        if(req.body.accessToken != user.accessToken) {
+          // if the access tokens dont match lets update the user
+          // with the new info
+          Auth.update({userID: user.userID}, {$set: {accessToken: req.body.accessToken, expiresIn: req.body.expiresIn}}, (err, resp) => {
+            if(err) console.log('There was an error updating the users auth:', err)
+            console.log('Users auth updated');
+            // redirect to user page
+            res.send({code: 200, message: 'User exists - redirect to user page', user: user})
+          })
+        } else {
+          // redirect to user page
+          res.send({code: 200, message: 'User exists - redirect to user page', user: user})
+        }
       }
     })
   });
