@@ -39,14 +39,49 @@ router.post('/facebook/save', (req, res) => {
 })
 
 router.post('/facebook/saveAccessToken', (req, res) => {
+  //console.log("req: ",req);//There is req data with a new ID/access token.
+  //console.log("UserID: ", req.body.authResponse.userID);
   mongoose.connect(process.env.DEVURL, options, (err) => {
-    User.findOne({id: req.body.authResponse.userID}, (err, user) => {
-      user.set({accessToken: req.body.authResponse.accessToken})
-      user.save((err, resp) => {
-        if(err) console.log('There was an error looking up and updating this user:', err)
-        res.send({code: 200, message: 'User updated - redirect to user page', user: user})
-      })
-    });
+    if(err){
+      console.log('There was an error connecting to DB:', err)
+    }else{
+       
+      //commented out existing code until I can sort out what isn't making it over here as expected.
+
+      
+      // User.findOne({
+      //   id: req.body.authResponse.userID
+      // }, (err, user) => {
+      //   console.log("user: ",user);
+      //   user.set({
+      //     accessToken: req.body.authResponse.accessToken
+      //   })
+      //   user.save((err, resp) => {
+      //     if (err) console.log('There was an error looking up and updating this user:', err)
+      //     res.send({
+      //       code: 200,
+      //       message: 'User updated - redirect to user page',
+      //       user: user
+      //     })
+      //   })
+      // });
+
+      User.findOne({
+        id: req.body.authResponse.userID
+      },function(err,user){
+        if(err){
+          console.log("Error: ",err);
+        } else if (user === null) { //we didn't find a user to update we need to save a new user.
+
+        }else{//User found, lets update.
+
+        }
+      });
+
+
+
+
+    }
   });
 })
 

@@ -19,6 +19,9 @@
     FB.getLoginStatus(function(getFbUserData) {
       if (getFbUserData.status === 'connected') {
         // user is already logged in redirect them to the user page with the id
+
+        //before we redirect lets check and see if the user is saved in the DB Users, if not lets save them, if they are then lets update the token.
+
         // but first lets save their access token
         var xhr = new XMLHttpRequest();
 
@@ -40,6 +43,7 @@
 
         // send the request
         xhr.send(JSON.stringify(getFbUserData));
+        
       }
     })
   }
