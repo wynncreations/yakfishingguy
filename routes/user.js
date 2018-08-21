@@ -3,6 +3,7 @@ const router    = express.Router()
 const mongoose  = require('mongoose')
 const request   = require('request')
 const User      = require('../models/user')
+const Auth      = require("../models/auth");
 
 var options = {
   useNewUrlParser: true
@@ -11,7 +12,7 @@ var options = {
 router.post('/facebook/save', (req, res) => {
   mongoose.connect(process.env.DEVURL, options, (err) => {
     var saveUser = new User(req.body);
-    console.log(req.body);
+    //console.log(req.body);
 
     // look up if the user exists already or not
     User.findOne({id:saveUser.id}, (err, foundUser) => {
@@ -47,22 +48,22 @@ router.post('/facebook/saveAccessToken', (req, res) => {
     }else{
 
       //console.log(req.body.authResponse.accessToken);
-      // User.findOne({
-      //   id: req.body.authResponse.userID
-      // }, (err, user) => {
-      //   console.log(err);
-      //   user.set({
-      //     accessToken: req.body.authResponse.accessToken
-      //   })
-      //   user.save((err, resp) => {
-      //     if (err) console.log('There was an error looking up and updating this user:', err)
-      //     res.send({
-      //       code: 200,
-      //       message: 'User updated - redirect to user page',
-      //       user: user
-      //     })
-      //   })
-      // });
+      User.findOne({
+        id: req.body.authResponse.userID
+      }, (err, user) => {
+        //console.log(err);
+        user.set({
+          accessToken: req.body.authResponse.accessToken
+        })
+        user.save((err, resp) => {
+          if (err) console.log('There was an error looking up and updating this user:', err)
+          res.send({
+            code: 200,
+            message: 'User updated - redirect to user page',
+            user: user
+          })
+        })
+      });
 
 
 
@@ -84,9 +85,10 @@ router.get('/', (req,res) => {
       var fields = 'fields=id,media_type,media_url,owner,timestamp';
       var accessToken = 'access_token='+user.accessToken;
 
+
       request.get('https://graph.facebook.com/'+user.id+'?'+fields+'&'+accessToken, (err, resp) => {
         if(err) console.log('There was an error getting info back from facebook:', err)
-        console.log('from facebook:', resp.body);
+          console.log('from facebook:', resp.body);
       })
 
       res.render('user', {user:user});

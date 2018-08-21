@@ -19,7 +19,7 @@
     FB.getLoginStatus(function(getFbUserData) {
       if (getFbUserData.status === 'connected') {
         // user is already logged in redirect them to the user page with the id
-
+        console.log(getFbUserData.status);
         // but first lets save their access token
         var xhr = new XMLHttpRequest();
 
@@ -95,6 +95,36 @@
       document.getElementById('fbLink').innerHTML = '<img style="margin-left: -10px" width="250" src="/images/facebook/fb_sign_btn.png"/>';
       document.getElementById('userData').innerHTML = '';
       document.getElementById('status').innerHTML = 'You have successfully logout from Facebook.';
+
+      // //We need to nuke the existing access token.
+
+       var xhr = new XMLHttpRequest();
+
+      // listen to the state change in order to use the response
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+          if(JSON.parse(xhr.responseText).code == 200) {
+            // redirect to user page with user id in the query params
+
+            console.log(JSON.parse(xhr.responseText));
+            window.location.href='/login';
+          }
+        }
+      }
+
+      // make this request a POST to the facebook auth url
+      xhr.open("POST", '/user/facebook/removeToken', true);
+
+      // set reuqest headers to indicate we're sending over json data to the server
+      xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+
+      // send the request
+      xhr.send(JSON.stringify(response));
+
+
+
+
+
     });
   }    
 

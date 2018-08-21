@@ -3,7 +3,7 @@ const router    = express.Router();
 const mongoose  = require('mongoose');
 const request   = require('request');
 const Auth      = require('../models/auth')
-const User      = require('../models/user')
+
 
 var options = {
   useNewUrlParser: true
@@ -71,5 +71,18 @@ router.post('/facebook/save', (req, res) => {
     })
   });
 })
+
+// kill off the token whenever we log out.
+router.get('/facebook/removeToken', (req, res) => {
+  mongoose.connect(process.env.DEVURL, options, (err) => {
+    // not passing any args to remove targets everything
+    Auth.deleteOne({
+      userID: req.params.userID
+    },(err) => {
+      console.log("error removing user auth, error:",err);
+    });
+  });
+})
+
 
 module.exports = router;
