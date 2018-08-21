@@ -11,11 +11,11 @@ var options = {
 router.post('/facebook/save', (req, res) => {
   mongoose.connect(process.env.DEVURL, options, (err) => {
     var saveUser = new User(req.body);
+    console.log(req.body);
 
     // look up if the user exists already or not
     User.findOne({id:saveUser.id}, (err, foundUser) => {
       if(err) console.log('There was an error looking up existing users:', err)
-
       // if there is no user found, save this user
       if(!foundUser) {
         saveUser.save((err, resp) => {
@@ -45,14 +45,12 @@ router.post('/facebook/saveAccessToken', (req, res) => {
     if(err){
       console.log('There was an error connecting to DB:', err)
     }else{
-       
-      //commented out existing code until I can sort out what isn't making it over here as expected.
 
-      
+      //console.log(req.body.authResponse.accessToken);
       // User.findOne({
       //   id: req.body.authResponse.userID
       // }, (err, user) => {
-      //   console.log("user: ",user);
+      //   console.log(err);
       //   user.set({
       //     accessToken: req.body.authResponse.accessToken
       //   })
@@ -66,17 +64,6 @@ router.post('/facebook/saveAccessToken', (req, res) => {
       //   })
       // });
 
-      User.findOne({
-        id: req.body.authResponse.userID
-      },function(err,user){
-        if(err){
-          console.log("Error: ",err);
-        } else if (user === null) { //we didn't find a user to update we need to save a new user.
-
-        }else{//User found, lets update.
-
-        }
-      });
 
 
 

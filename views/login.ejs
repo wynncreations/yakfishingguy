@@ -3,12 +3,12 @@
   <div class="container">
     <div id="continue"></div>
     <div id="fb-root"></div>
-    <div class="fb-login-button" data-width="250" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="true" data-auto-logout-link="true" data-use-continue-as="true"></div>    
+   <!--  <div class="fb-login-button" data-width="250" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="true" data-auto-logout-link="true" data-use-continue-as="true"></div>  -->  
 
     <!-- Facebook login or logout button -->
-    <!-- <a onclick="fbLogin()" id="fbLink"><img style="margin-left: -10px" width="250" src="/images/facebook/fb_sign_btn.png"/></a> -->
-    <!-- <fb:login-button scope="email,instagram_basic"></fb:login-button> -->
-    <!-- <a onclick="fbLogout()">Log out</a> -->
+    <a onclick="fbLogin()" id="fbLink"><img style="margin-left: -10px" width="250" src="/images/facebook/fb_sign_btn.png"/></a> 
+    <fb:login-button scope="email,instagram_basic"></fb:login-button> 
+    <a onclick="fbLogout()">Log out</a> 
   </div>
 
 <% include partials/footer %>
@@ -19,8 +19,6 @@
     FB.getLoginStatus(function(getFbUserData) {
       if (getFbUserData.status === 'connected') {
         // user is already logged in redirect them to the user page with the id
-
-        //before we redirect lets check and see if the user is saved in the DB Users, if not lets save them, if they are then lets update the token.
 
         // but first lets save their access token
         var xhr = new XMLHttpRequest();
@@ -64,6 +62,8 @@
     FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture'}, function(response){
       // save the user information
       // create a new javascript xhr request
+
+      console.log(response);
       var xhr = new XMLHttpRequest();
 
       // listen to the state change in order to use the response
