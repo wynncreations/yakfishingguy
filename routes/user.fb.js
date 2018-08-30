@@ -91,6 +91,9 @@ router.get('/', (req,res) => {
           console.log('from facebook:', resp.body);
       })
 
+      
+      user.authenticate();
+
       res.render('user', {user:user});
     })
   });

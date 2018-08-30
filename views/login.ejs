@@ -1,151 +1,18 @@
 <% include partials/header %>
 
-  <div class="container">
-    <div id="continue"></div>
-    <div id="fb-root"></div>
-   <!--  <div class="fb-login-button" data-width="250" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="true" data-auto-logout-link="true" data-use-continue-as="true"></div>  -->  
-
-    <!-- Facebook login or logout button -->
-    <a onclick="fbLogin()" id="fbLink"><img style="margin-left: -10px" width="250" src="/images/facebook/fb_sign_btn.png"/></a> 
-    <!-- <fb:login-button scope="email,instagram_basic"></fb:login-button> -->
-    <a onclick="fbLogout()">Log out</a> 
-  </div>
-
-<% include partials/footer %>
-
-<script>
-
-  var getLoginStatus = function() {
-    FB.getLoginStatus(function(getFbUserData) {
-      if (getFbUserData.status === 'connected') {
-        // user is already logged in redirect them to the user page with the id
-        console.log(getFbUserData.status);
-        // but first lets save their access token
-        var xhr = new XMLHttpRequest();
-
-        // listen to the state change in order to use the response
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState == XMLHttpRequest.DONE) {
-            if(JSON.parse(xhr.responseText).code == 200) {
-              // redirect to user page with user id in the query params
-              document.getElementById('continue').innerHTML = '<a href="/user?id='+JSON.parse(xhr.responseText).user.id+'">Continue to user page</a>';
-            }
-          }
-        }
-
-        // make this request a POST to the facebook auth url
-        xhr.open("POST", '/user/facebook/saveAccessToken', true);
-
-        // set reuqest headers to indicate we're sending over json data to the server
-        xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-
-        // send the request
-        xhr.send(JSON.stringify(getFbUserData));
-        
-      }
-    })
-  }
-
-  // Facebook login with JavaScript SDK
-  function fbLogin() {
-    FB.login(function (response) {
-      if (response.authResponse) {
-        // Get and display the user profile data
-        getFbUserData();
-      } else {
-        document.getElementById('status').innerHTML = 'User cancelled login or did not fully authorize.';
-      }
-    }, {scope: 'email, instagram_basic'});
-  }    
-
-  function getFbUserData() {
-    FB.api('/me', {locale: 'en_US', fields: 'id,first_name,last_name,email,link,gender,locale,picture'}, function(response){
-      // save the user information
-      // create a new javascript xhr request
-
-      console.log(response);
-      var xhr = new XMLHttpRequest();
-
-      // listen to the state change in order to use the response
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState == XMLHttpRequest.DONE) {
-          if(JSON.parse(xhr.responseText).code == 200) {
-            // redirect to user page with user id in the query params
-
-            console.log(JSON.parse(xhr.responseText));
-            window.location.href='/user?id='+JSON.parse(xhr.responseText).user.id;
-          }
-        }
-      }
-
-      // make this request a POST to the facebook auth url
-      xhr.open("POST", '/user/facebook/save', true);
-
-      // set reuqest headers to indicate we're sending over json data to the server
-      xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-
-      // send the request
-      xhr.send(JSON.stringify(response));
-    });
-  }
-
-  function fbLogout() {
-    FB.logout(function() {
-      document.getElementById('fbLink').setAttribute("onclick","fbLogin()");
-      document.getElementById('fbLink').innerHTML = '<img style="margin-left: -10px" width="250" src="/images/facebook/fb_sign_btn.png"/>';
-      document.getElementById('userData').innerHTML = '';
-      document.getElementById('status').innerHTML = 'You have successfully logout from Facebook.';
-
-      // //We need to nuke the existing access token.
-
-       var xhr = new XMLHttpRequest();
-
-      // listen to the state change in order to use the response
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState == XMLHttpRequest.DONE) {
-          if(JSON.parse(xhr.responseText).code == 200) {
-            // redirect to user page with user id in the query params
-
-            console.log(JSON.parse(xhr.responseText));
-            window.location.href='/login';
-          }
-        }
-      }
-
-      // make this request a POST to the facebook auth url
-      xhr.open("POST", '/user/facebook/removeToken', true);
-
-      // set reuqest headers to indicate we're sending over json data to the server
-      xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-
-      // send the request
-      xhr.send(JSON.stringify(response));
-
-
-
-
-
-    });
-  }    
-
-  // this initializes it for our app
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId            : '240049356649866',
-      autoLogAppEvents : true,
-      xfbml            : true,
-      version          : 'v3.1'
-    });
-
-    getLoginStatus();
-  };    
-
-  // this pulls in the facebook scripts to load up the modal windows for the login etc
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.1&appId=240049356649866&autoLogAppEvents=1';
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));    
-</script>
+<div class="container">
+    <div class="row">
+        <div class="pull-right sidebar col-md-2"><%# Side bar %>
+            <ul class="col-md-12 list-group">
+                <li class="list-group-item"><a href="https://www.youtube.com/channel/UCtWt-4A3vRmEXMPltqnFnuw">Youtube</a></li>
+                <li class="list-group-item"><a href="https://www.instagram.com/yakfishingguy/?hl=en">Instagram</a></li>
+                <li class="list-group-item"><a href="./blog">Blog</a></li>
+                <li class="list-group-item"><a href="#">Privacy Policy</a></li>
+                <li class="list-group-item"><a href="#">Terms of Service</a></li>
+            </ul>
+        </div>
+        <div class="pull-right mainContent col-md-10"><%# Main body area %>
+            
+        </div>       
+    </div>
+</div>
