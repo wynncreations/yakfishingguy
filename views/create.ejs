@@ -1,0 +1,37 @@
+<% include partials/header %>
+
+<div class="container">
+    <div class="row">
+        <div class="pull-right sidebar col-md-2"><%# Side bar %>
+            <ul class="col-md-12 list-group">
+                <li class="list-group-item"><a href="https://www.youtube.com/channel/UCtWt-4A3vRmEXMPltqnFnuw">Youtube</a></li>
+                <li class="list-group-item"><a href="https://www.instagram.com/yakfishingguy/?hl=en">Instagram</a></li>
+                <li class="list-group-item"><a href="./blog">Blog</a></li>
+                <li class="list-group-item"><a href="#">Privacy Policy</a></li>
+                <li class="list-group-item"><a href="#">Terms of Service</a></li>
+            </ul>
+        </div>
+        <div class="pull-right mainContent col-md-10"><%# Main body area %>
+           <div class="blog-create">
+                <form class="form col-md-6">
+                    <div class="form-group">
+                        <label for="blog[title]">Blog Title:</label>
+                        <input type="text" class="form-control" name="blog[title]" placeholder="Blog title">
+                    </div>
+                    <div class="form-group">
+                        <label for="blog[title]">Blog Subtitle:</label>
+                        <input type="text" class="form-control" name="blog[subtitle]" placeholder="Blog subtitle">
+                    </div>
+                    <div class="form-group">
+                        <label for="blog[title]">Blog Text:</label>
+                        <textarea class="form-control" rows="15" name="blog[text]">Blog Text</textarea>
+                    </div>
+                </form>
+           </div>
+        </div>       
+    </div>
+</div>
+
+
+
+<% include partials/footer %>

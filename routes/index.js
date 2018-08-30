@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var express = require("express");
 var router = express.Router();
 var passport = require("passport");
@@ -23,4 +24,13 @@ router.get("/privacy", function (req, res) {
 
 
 
+=======
+const express   = require('express');
+const router    = express.Router();
+
+router.get('/',(req,res) => {
+  res.render('landing')
+});
+
+>>>>>>> oauth
 module.exports = router;
