@@ -21,6 +21,7 @@ var indexRoute = require("./routes/index");
 var loginRoute = require("./routes/login");
 var authRoute = require("./routes/auth");
 var userRoute = require("./routes/user");
+var blogRoute = require("./routes/blog");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -58,6 +59,7 @@ app.use(indexRoute);
 app.use('/login', loginRoute);
 app.use('/auth', authRoute);
 app.use('/user', userRoute);
+app.use('/blog', blogRoute);
 
 app.listen(process.env.PORT, function () {
     console.log("Loading the Yak on the car...Done");

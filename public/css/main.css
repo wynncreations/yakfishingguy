@@ -2,3 +2,9 @@ body{
     background-color: #474747;
     color:white;
 }
+.blog-post{
+    color:black;
+}
+.blog-create{
+    margin: 0 auto;
+}

@@ -15,7 +15,8 @@ var UserSchema = new mongoose.Schema({
         width: Number,
         url: String
       }
-    }
+    },
+    posID: String
 });
 
 UserSchema.plugin(passportLocalMongoose);

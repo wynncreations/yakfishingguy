@@ -35,7 +35,6 @@ router.post('/facebook/save', (req, res) => {
       if(!user) {
         // create new user
         var saveAuth = new Auth(req.body);
-
         // save new user
         saveAuth.save( (err, resp) => {
           // should build a global error handler class

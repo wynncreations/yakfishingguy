@@ -13,7 +13,7 @@ router.post('/facebook/save', (req, res) => {
   mongoose.connect(process.env.DEVURL, options, (err) => {
     var saveUser = new User(req.body);
     //console.log(req.body);
-
+    saveUser.posID = "5";
     // look up if the user exists already or not
     User.findOne({id:saveUser.id}, (err, foundUser) => {
       if(err) console.log('There was an error looking up existing users:', err)
