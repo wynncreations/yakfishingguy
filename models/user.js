@@ -7,15 +7,6 @@ var UserSchema = new mongoose.Schema({
     first_name: String,
     last_name: String,
     email: String,
-    id: Number,
-    accessToken: String,
-    picture: {
-      data: {
-        height: Number,
-        width: Number,
-        url: String
-      }
-    },
     posID: String
 });
 

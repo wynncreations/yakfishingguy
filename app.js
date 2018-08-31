@@ -58,7 +58,7 @@ app.use(function (req, res, next) {
 
 app.use(indexRoute);
 app.use('/login', loginRoute);
-app.use('/auth', authRoute);
+//app.use('/auth', authRoute);
 app.use('/user', userRoute);
 app.use('/blog', blogRoute);
 
